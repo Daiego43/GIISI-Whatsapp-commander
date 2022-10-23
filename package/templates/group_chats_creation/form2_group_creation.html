@@ -1,0 +1,31 @@
+{% extends "group_chats_creation/main_group_creation.html" %}
+{% block form %}
+            <div class="row" style="width: 100%;margin-right: 0px;margin-left: 0px;">
+                <div class="col" style="width: 100%;">
+                    <form method="post" action="{{ url_for('group_creation_finished') }}">
+                        <div class="row">
+                            <div class="col" style="text-align: center;">
+                                <p>Selecciona la columna que contiene los contactos</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col" style="text-align: center;">
+                                <select class="form-select" name="field">
+                                    <optgroup label="Columnas del csv">
+                                        {% for field in csv_fields %}
+                                        <option value="{{ field }}">{{ field }}</option>
+                                        {% endfor %}
+                                    </optgroup>
+                                </select>
+                                {% for key,value in creation_params.items() %}
+                                    <input type="hidden" name="{{ key }}" value="{{ value }}">
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col" style="text-align: center;"><button class="btn btn-dark" type="submit" style="margin: 10px;">Crear grupo !</button></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+{% endblock %}

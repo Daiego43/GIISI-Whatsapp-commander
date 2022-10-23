@@ -1,0 +1,11 @@
+{% extends 'root_templates/main.html' %}
+{% block contenido %}
+<div class="container" style="margin: 0px;padding: 0px;width: 80%;margin-right: 10%;margin-left: 10%;height: 96%;text-align: center;">
+    <div class="row" style="width: 100%;margin-right: 0px;margin-left: 0px;height: 100%;">
+        <div class="col" style="width: 100%;text-align: center;padding-top: 25%;padding-bottom: 25%;">
+            <h2 style="text-align: center;">{{ message }}</h2>
+            <a class="btn btn-dark" role="button" href="{{ url_for('home') }}">Volver</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
