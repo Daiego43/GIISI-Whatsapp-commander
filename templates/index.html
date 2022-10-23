@@ -1,0 +1,20 @@
+{% extends 'root_templates/main.html' %}
+{% block contenido %}
+        <div class="container" style="margin: 0px;padding: 0px;width: 80%;margin-right: 10%;margin-left: 10%;height: 96%;">
+            <div class="row" style="margin: 0px;width: 100%;">
+                <div class="col">
+                    <p style="font-size: 20px;text-align: center;">Bienvenid@ al Whatsapp manager para automatizar las tareas tediosas de delegación</p>
+                </div>
+            </div>
+            <div class="row" style="margin: 0px;width: 100%;">
+                <div class="col" style="width: 80%;">
+                    <h2 style="color: rgb(255,255,255);">Opciones</h2>
+                </div>
+            </div>
+            <div class="row" style="margin: 0px;width: 100%;">
+                <div class="col" style="text-align: center;padding: 12px;">
+                    <a class="btn btn-dark" role="button" style="border-radius: 10px;width: 60%;" href="{{ url_for('group_creation') }}">Crear un grupo de whatsapp</a>
+                </div>
+            </div>
+        </div>
+{% endblock %}
