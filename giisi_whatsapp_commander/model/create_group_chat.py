@@ -3,14 +3,14 @@ import pandas as pd
 import webbrowser as web
 import pyperclip
 import os
-from model.utilities import wait_whatsapp_ready, locate_while
+from utilities import wait_whatsapp_ready, locate_while
 
-path_to_images_group = "static/images/group_creation"
-path_to_images = "static/images"
+path_to_images_group = os.path.join("static", "images", "group_chats_creation")
+path_to_images = os.path.join("static", "images")
 
 
 class GroupChats:
-    def __init__(self, chat_members, group_name, photo_path, sleep_time=1.0):
+    def __init__(self, chat_members, group_name="", photo_path="", sleep_time=1.0):
         pag.MINIMUM_SLEEP = sleep_time
         self.group_members = chat_members
         self.group_name = group_name
@@ -85,6 +85,11 @@ class GroupChats:
             print("step 5")
             self.step_5()
 
+    def create_group_chat_csv(self):
+        self.step_1()
+        self.step_2()
+        self.step_3()
+
 
 def main(file_path, photo_path, group_name, csv_field, sleep_time=1):
     web.open("https://web.whatsapp.com/", new=True)
@@ -93,6 +98,15 @@ def main(file_path, photo_path, group_name, csv_field, sleep_time=1):
     wait_whatsapp_ready(path_to_images)
     c = GroupChats(chat_members, group_name, photo_path, sleep_time)
     c.create_group_chat()
+
+
+def main2(csv_path, csv_field):
+    web.open("https://web.whatsapp.com/", new=True)
+    df = pd.read_csv(csv_path)
+    chat_members = list(df[csv_field])
+    wait_whatsapp_ready(path_to_images)
+    c = GroupChats(chat_members, sleep_time=0.5)
+    c.create_group_chat_csv()
 
 
 if __name__ == "__main__":

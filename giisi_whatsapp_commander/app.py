@@ -7,11 +7,10 @@ from model.create_group_chat import main as create_group_chat
 
 app = Flask(__name__)
 app.config['FILE_UPLOADS'] = os.path.join("uploads", "files")
-app.config['IMAGE_UPLOADS'] = os.path.join("uploads", "images")
 
 
 @app.route('/')
-def home():  # put application's code here
+def home():
     clean_uploads()
     return render_template("index.html")
 
@@ -32,7 +31,6 @@ def process_file():
     """
     error = [False, '']
     file = request.files['contacts']
-    image = request.files['image']
 
     if file and allowed_file(file.filename):
         # Guardar el csv
@@ -40,18 +38,8 @@ def process_file():
         file.save(os.path.join(app.config['FILE_UPLOADS'], filename))
         os.rename(os.path.join(app.config['FILE_UPLOADS'], filename),
                   os.path.join(app.config['FILE_UPLOADS'], "workingfile.csv"))
-
-        # Guardar la imagen de grupo
-        imagename = secure_filename(image.filename)
-        image.save(os.path.join(app.config['IMAGE_UPLOADS'], imagename))
-        name, extension = imagename.split('.')
-        os.rename(os.path.join(app.config['IMAGE_UPLOADS'], imagename),
-                  os.path.join(app.config['IMAGE_UPLOADS'], "workingimage."+extension))
-
         fields = get_csv_fields("workingfile.csv")
-        creation_params = {"group_name": request.form['group_name'],
-                           "file_path": get_uploaded_image(),
-                           "image_path": get_uploaded_file()}
+        creation_params = {"file_path": get_uploaded_file()}
         return render_template("group_chats_creation/form2_group_creation.html", error=error, csv_fields=fields, creation_params=creation_params)
     else:
         error[0] = True
@@ -64,10 +52,8 @@ def process_file():
 
 @app.route("/group_creation/creating_the_group_finished", methods=['POST', "GET"])
 def group_creation_finished():
-    path_to_file = get_uploaded_file()
-    path_to_image = get_uploaded_image()
+    csv_path = get_uploaded_file()
     csv_field = request.form['field']
-    group_name = request.form['group_name']
-    create_group_chat(path_to_file, path_to_image,group_name, csv_field)
+    create_group_chat(csv_path=csv_path, csv_field=field)
     msg = "Tu grupo se ha creado"
     return render_template("group_chats_creation/await_group_creation.html", message=msg)
