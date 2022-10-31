@@ -1,4 +1,4 @@
-# GIISI-UPO-Whatsapp-Commander
+# GIISI Whatsapp manager
 Esta pequeña herramienta es una aplicación web hecha en flask que toma inspiración de pywhatkit, con el propósito de ayudar en algunas tareas tediosas a los miembros de delegación Escuela Politécnica Superior de la universidad Pablo de Olavide.
 La razón de hacer una aplicación así es el simple hecho de no tener que pagar por usar una API.
 
